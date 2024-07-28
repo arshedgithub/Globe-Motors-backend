@@ -1,5 +1,7 @@
 const express = require('express');
 const connection = require('../../connection');
+const admin = require('../../middlewares/admin');
+const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router.get('/colors', (req, res, next) => {
@@ -13,7 +15,7 @@ router.get('/colors', (req, res, next) => {
     });
 });
 
-router.delete('/delete/:id', (req, res, next) => {
+router.delete('/colors/:id', auth, admin, (req, res, next) => {
     const id = req.params.id;
     var query = "Delete from product where id=?";
     connection.query(query, [id], (err, results) => {
@@ -27,3 +29,5 @@ router.delete('/delete/:id', (req, res, next) => {
         }
     });
 });
+
+module.exports = router;

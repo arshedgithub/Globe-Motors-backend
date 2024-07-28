@@ -4,14 +4,16 @@ require('dotenv').config();
 var cors = require('cors');
 const http = require('http');
 
-const productsRouter = require('./routes/products/products');
+const productRouter = require('./routes/products/products');
+const colorRouter = require('./routes/products/colors');
 
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use('/api/products', productsRouter);
+app.use('/api/products', productRouter);
+app.use('/api/products', colorRouter);
 
 const server = http.createServer(app);
 
