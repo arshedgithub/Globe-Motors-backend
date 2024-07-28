@@ -1,30 +1,23 @@
 const express = require('express');
 require('dotenv').config();
 
+const app = express();
 var cors = require('cors');
-const http = require('http');
+app.use(cors());
 
+// import routes
 const productRouter = require('./routes/products/products');
 const colorRouter = require('./routes/products/colors');
 
-const app = express();
-app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+// routes
 app.use('/api/products', productRouter);
 app.use('/api/products', colorRouter);
 
-const server = http.createServer(app);
-
-app.use('/home', (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('Welcome');
-    res.end();
-});
-
-const port = process.env.PORT || 3000;
-server.listen(port);
-console.log(`server listening on port ${port}...`);
+// creating server...
+var port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`server running on localhost:${port}`));
 
 module.exports = app;
