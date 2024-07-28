@@ -3,12 +3,15 @@ require('dotenv').config();
 
 var cors = require('cors');
 const http = require('http');
-var mysql = require('mysql');
+
+const productsRouter = require('./routes/products');
 
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+app.use('/api/products', productsRouter);
 
 const server = http.createServer(app);
 
@@ -21,4 +24,5 @@ app.use('/home', (req, res) => {
 const port = process.env.PORT || 3000;
 server.listen(port);
 console.log(`server listening on port ${port}...`);
+
 module.exports = app;
