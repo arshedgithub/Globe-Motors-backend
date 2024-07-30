@@ -1,9 +1,10 @@
 const express = require('express');
 const connection = require('../../connection');
+const auth = require('../../middlewares/auth');
 const router = express.Router();
 
-router.get('/categories', (req, res, next) => {
-    var query = "Select * from category";
+router.get('/', auth, (req, res, next) => {
+    var query = "Select * from brand";
     connection.query(query, (err, results) => {
         if (!err) {
             return res.status(200).json(results)
@@ -13,19 +14,8 @@ router.get('/categories', (req, res, next) => {
     });
 });
 
-router.get('/subcategories', (req, res, next) => {
-    var query = "Select * from subcategory";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
-});
-
-router.get('/paymentmethods', (req, res, next) => {
-    var query = "Select * from payment_method";
+router.get('/:id', auth, (req, res, next) => {
+    var query = "Select * from brand";
     connection.query(query, (err, results) => {
         if (!err) {
             return res.status(200).json(results)
