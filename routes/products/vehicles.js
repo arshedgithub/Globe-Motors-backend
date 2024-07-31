@@ -1,16 +1,10 @@
 const express = require('express');
-const connection = require('../../util/connection');
+const vehicle = require('../../models/Product/vehicle');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    var query = "Select * from vehicle";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
+router.get('/', async (req, res, next) => {
+    let vehicle = await vehicle.findAll();
+    res.status(200).json(vehicle);
 });
 
 module.exports = router;
