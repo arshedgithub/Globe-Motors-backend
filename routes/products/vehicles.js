@@ -1,6 +1,5 @@
 const express = require('express');
 const connection = require('../../util/connection');
-const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
