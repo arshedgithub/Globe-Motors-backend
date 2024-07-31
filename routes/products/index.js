@@ -1,11 +1,10 @@
 const express = require('express');
 const connection = require('../../connection');
-const admin = require('../../middlewares/admin');
 const auth = require('../../middlewares/auth');
 const router = express.Router();
 
-router.get('/', auth, (req, res, next) => {
-    var query = "Select * from subcategory";
+router.get('/', (req, res, next) => {
+    var query = "Select * from gm_product";
     connection.query(query, (err, results) => {
         if (!err) {
             return res.status(200).json(results)
@@ -14,6 +13,5 @@ router.get('/', auth, (req, res, next) => {
         }
     });
 });
-
 
 module.exports = router;

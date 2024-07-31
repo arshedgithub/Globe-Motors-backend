@@ -14,15 +14,4 @@ router.get('/', auth, (req, res, next) => {
     });
 });
 
-router.get('/:id', auth, (req, res, next) => {
-    var query = "Select * from brand";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
-});
-
 module.exports = router;
