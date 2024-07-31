@@ -4,7 +4,7 @@ const admin = require('../../middlewares/admin');
 const auth = require('../../middlewares/auth');
 const router = express.Router();
 
-router.get('/', auth, (req, res, next) => {
+router.get('/', (req, res, next) => {
     var query = "Select * from subcategory";
     connection.query(query, (err, results) => {
         if (!err) {
@@ -14,6 +14,5 @@ router.get('/', auth, (req, res, next) => {
         }
     });
 });
-
 
 module.exports = router;

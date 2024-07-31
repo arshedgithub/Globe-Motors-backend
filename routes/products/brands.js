@@ -3,7 +3,7 @@ const connection = require('../../connection');
 const auth = require('../../middlewares/auth');
 const router = express.Router();
 
-router.get('/', auth, (req, res, next) => {
+router.get('/', (req, res, next) => {
     var query = "Select * from brand";
     connection.query(query, (err, results) => {
         if (!err) {
