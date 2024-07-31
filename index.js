@@ -9,6 +9,9 @@ app.use(cors());
 const categoryRouter = require('./routes/products/categories');
 const subcategoryRouter = require('./routes/products/subcategories');
 const brandRouter = require('./routes/products/brands');
+const originRouter = require('./routes/products/origins');
+const useStatusRouter = require('./routes/products/use_statuses');
+const vehicleRouter = require('./routes/products/vehicles');
 const productRouter = require('./routes/products/');
 
 const userRouter = require('./routes/users');
@@ -24,6 +27,9 @@ app.use(express.json());
 app.use('/api/products/categories', categoryRouter);
 app.use('/api/products/subcategories', subcategoryRouter);
 app.use('/api/products/brands', brandRouter);
+app.use('/api/products/origins', originRouter);
+app.use('/api/products/vehicles', vehicleRouter);
+app.use('/api/products/usestatuses', useStatusRouter);
 app.use('/api/products', productRouter);
 
 // login routes
