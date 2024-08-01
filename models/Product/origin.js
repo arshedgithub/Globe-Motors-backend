@@ -16,4 +16,6 @@ module.exports = (sequelize) => {
         Origin.hasMany(sequelize.define('products'));
     }
 
+    return Origin;
+
 }

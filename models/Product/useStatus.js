@@ -16,4 +16,6 @@ module.exports = (sequelize) => {
         UseStatus.hasMany(sequelize.define('products'));
     }
 
+    return UseStatus;
+
 }

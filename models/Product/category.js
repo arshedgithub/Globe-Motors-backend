@@ -16,5 +16,7 @@ module.exports = (sequelize) => {
         Category.hasMany(sequelize.define('products'));
         Category.hasMany(sequelize.define('product_subcategory'));
     }
+
+    return Category;
 }
 

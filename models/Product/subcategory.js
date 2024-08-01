@@ -21,4 +21,6 @@ module.exports = (sequelize) => {
         Subcategory.belongsTo(sequelize.define('product_category'));
     }
 
+    return Subcategory;
+
 }

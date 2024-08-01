@@ -13,10 +13,10 @@ module.exports = (sequelize) => {
         description: DataTypes.TEXT,
         photo: DataTypes.TEXT,
         review: DataTypes.TEXT,
-        offer: DataTypes.DECIMAL(3, 2),
+        offer: DataTypes.DECIMAL(4, 2),
         cost: DataTypes.DECIMAL(10, 2),
         price: DataTypes.DECIMAL(10, 2),
-        tax: DataTypes.DECIMAL(2, 2),
+        tax: DataTypes.DECIMAL(6, 2),
         stock: DataTypes.INTEGER,
         stock_limit_min: DataTypes.INTEGER,
         stock_limit_max: DataTypes.INTEGER,
@@ -45,6 +45,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
     });
+    
     Product.associate = function(models){
         Product.belongsTo('product_brand'); 
         Product.belongsTo('product_category'); 
@@ -53,4 +54,7 @@ module.exports = (sequelize) => {
         Product.belongsTo('procuct_vehicle'); 
         Product.belongsTo('product_use_status'); 
     }
+
+    return Product;
+
 };

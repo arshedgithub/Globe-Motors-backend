@@ -15,4 +15,7 @@ module.exports = (sequelize) => {
     Vehicle.associate = function (models) {
         Vehicle.hasMany(sequelize.define('products'));
     }
+
+    return Vehicle;
+ 
 }

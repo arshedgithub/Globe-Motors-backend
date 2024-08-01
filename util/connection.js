@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const Product = require('../models/Product/Product.js');
 const brand = require('../models/Product/brand.js');
 const category = require('../models/Product/category.js');
-const subcategroy = require('../models/Product/subcategroy.js');
+const subcategroy = require('../models/Product/subcategory.js');
 const useStatus = require('../models/Product/useStatus.js');
 const origin = require('../models/Product/origin.js');
 const vehicle = require('../models/Product/vehicle.js');
@@ -43,4 +43,4 @@ sequelize.sync({ force: true })
 .then(() => console.log("Database synced successfully."))
 .catch(err => console.log(err));
 
-module.exports = sequelize;
+module.exports = db;
