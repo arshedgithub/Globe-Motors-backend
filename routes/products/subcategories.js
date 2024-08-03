@@ -1,18 +1,31 @@
 const express = require('express');
-const connection = require('../../util/connection');
 const admin = require('../../middlewares/admin');
 const auth = require('../../middlewares/auth');
+const db = require('../../util/connection');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    var query = "Select * from subcategory";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
+const Subcategory = db.subcategroy;
+
+router.get('/', async (req, res, next) => {
+    let subcategories = await Subcategory.findAll();
+    res.status(200).json(subcategories);
+    next();
+});
+
+router.post('/', auth, admin, async (req, res, next) => {
+    let obj = {
+        name: req.body.name,
+        categoryId: req.body.categoryId
+    }
+    let subcategory = await Subcategory.create(obj);
+    res.status(200).json(subcategory);
+    next();
+});
+
+router.delete('/:id', auth, admin, async (req, res, next) => {
+    let subcategory = await Subcategory.destroy({where: {id: req.params.id}});
+    res.status(200).json(subcategory + ' deleted');
+    next();
 });
 
 module.exports = router;

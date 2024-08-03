@@ -1,17 +1,27 @@
 const express = require('express');
-const connection = require('../../util/connection');
 const auth = require('../../middlewares/auth');
+const admin = require('../../middlewares/admin');
+const db = require('../../util/connection');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    var query = "Select * from vehicle";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
+const Vehicle = db.vehicle;
+
+router.get('/', async (req, res, next) => {
+    let vehicle = await Vehicle.findAll();
+    res.status(200).json(vehicle);
+    next();
+});
+
+router.post('/', auth, admin, async (req, res, next) => {
+    let vehicle = await Vehicle.create({name: req.body.name});
+    res.status(200).json(vehicle);
+    next();
+});
+
+router.delete('/:id', auth, admin, async (req, res, next) => {
+    let vehicle = await Vehicle.destroy({where: {id: req.params.id}});
+    res.status(200).json(vehicle + ' deleted');
+    next();
 });
 
 module.exports = router;

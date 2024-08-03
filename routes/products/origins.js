@@ -1,17 +1,21 @@
 const express = require('express');
-const connection = require('../../util/connection');
 const auth = require('../../middlewares/auth');
+const admin = require('../../middlewares/admin');
+const db = require('../../util/connection');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    var query = "Select * from origin";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
+const Origin = db.origin;
+
+router.get('/', async (req, res, next) => {
+    let origins = await Origin.findAll();
+    res.status(200).json(origins);
+    next();
+});
+
+router.post('/', auth, admin, async (req, res, next) => {
+    let origins = await Origin.create({name: req.body.name});
+    res.status(200).json(origins);
+    next();
 });
 
 module.exports = router;

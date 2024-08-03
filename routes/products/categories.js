@@ -1,33 +1,27 @@
 const express = require('express');
-const connection = require('../../util/connection');
 const admin = require('../../middlewares/admin');
 const auth = require('../../middlewares/auth');
+const db = require('../../util/connection');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    var query = "Select * from category";
-    connection.query(query, (err, results) => {
-        if (!err) {
-            return res.status(200).json(results)
-        } else {
-            return res.status(500).json(err); 
-        }
-    });
+const Category = db.category;
+
+router.get('/', async (req, res, next) => {
+    let categories = await Category.findAll();
+    res.status(200).json(categories);
+    next();
 });
 
-// router.delete('/:id', auth, admin, (req, res, next) => {
-//     const id = req.params.id;
-//     var query = "Delete from category where id=?";
-//     connection.query(query, [id], (err, results) => {
-//         if (!err) {
-//             if (results.affectedRows == 0){
-//                 return res.status(404).json({message: "Product id does not found."});
-//             }
-//             return res.status(200).json({message: "Product updated successfully."});
-//         } else {
-//             return res.status(500).json(err);
-//         }
-//     });
-// });
+router.post('/', auth, admin, async (req, res, next) => {
+    let categories = await Category.create({name: req.body.name});
+    res.status(200).json(categories);
+    next();
+});
+
+router.delete('/:id', auth, admin, async (req, res, next) => {
+    let category = await Category.destroy({where: {id: req.params.id}});
+    res.status(200).json(category + ' deleted');
+    next();
+});
 
 module.exports = router;
