@@ -1,8 +1,9 @@
 const { DataTypes } = require("sequelize");
+const category = require("./category");
 
 module.exports = (sequelize) => {
 
-    const Product = sequelize.define('products', {
+    const Product = sequelize.define('Product', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -30,29 +31,33 @@ module.exports = (sequelize) => {
         },
         subcategoryId: {
             type: DataTypes.INTEGER,
-            allowNull: false            
+            allowNull: false
         },
         originId: {
             type: DataTypes.INTEGER,
-            allowNull: false            
+            allowNull: false
         },
         vehicleId: {
             type: DataTypes.INTEGER,
-            allowNull: false           
+            allowNull: false
         },
         useStatusId: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-    });
-    
-    Product.associate = function(models){
-        Product.belongsTo('product_brand'); 
-        Product.belongsTo('product_category'); 
-        Product.belongsTo('product_subcategory');  
-        Product.belongsTo('product_origin');  
-        Product.belongsTo('procuct_vehicle'); 
-        Product.belongsTo('product_use_status'); 
+        }
+    },
+        {
+            tableName: 'products'
+        }
+    );
+
+    Product.associate = function (models) {
+        Product.belongsTo('product_brand');
+        Product.belongsTo(category, { foreignKey: 'id' });
+        Product.belongsTo('product_subcategory');
+        Product.belongsTo('product_origin');
+        Product.belongsTo('procuct_vehicle');
+        Product.belongsTo('product_use_status');
     }
 
     return Product;

@@ -5,6 +5,7 @@ const db = require('../../util/connection');
 const router = express.Router();
 
 const Product = db.products;
+// const Category = db.category;
 
 router.get('/', async (req, res, next) => {
     const products = await Product.findAll();
