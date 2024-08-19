@@ -10,6 +10,9 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         name: DataTypes.STRING,
+    },{
+        tableName: 'gender',
+        timestamps: false       
     });
 
     Gender.associate = function (models) {

@@ -12,10 +12,11 @@ module.exports = (sequelize) => {
         name: DataTypes.STRING,
     },{
         timestamps: false,
+        tableName: 'customer_status'
     });
 
     CustomerStatus.associate = function (models) {
-        CustomerStatus.hasMany(models.CustomerStatus, { foreignKey: 'customerStatusId' });
+        CustomerStatus.hasMany(models.Customer, { foreignKey: 'customerStatusId' });
     }
 
     return CustomerStatus;

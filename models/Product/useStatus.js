@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         name: DataTypes.STRING,
+    },{
+        tableName: 'product_use_status',
+        timestamps: false       
     });
 
     UseStatus.associate = function (models) {
