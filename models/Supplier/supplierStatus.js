@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
 
-    const CustomerStatus = sequelize.define('CustomerStatus', {
+    const SupplierStatus = sequelize.define('SupplierStatus', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -10,14 +10,12 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         name: DataTypes.STRING,
-    },{
-        timestamps: false,
     });
 
-    CustomerStatus.associate = function (models) {
-        CustomerStatus.hasMany(models.CustomerStatus, { foreignKey: 'customerStatusId' });
+    SupplierStatus.associate = function (models) {
+        SupplierStatus.hasMany(models.Supplier, { foreignKey: 'supplierStatusId' });
     }
 
-    return CustomerStatus;
+    return SupplierStatus;
 
 }

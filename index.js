@@ -16,10 +16,18 @@ const productRouter = require('./routes/products/');
 
 // import customer routes
 const customerStatusRouter = require('./routes/customers/status.js');
-const genderRouter = require('./routes/customers/gender');
 const customerRouter = require('./routes/customers/');
 
+// import supplier routes
+const supplierStatusRouter = require('./routes/suppliers/status.js');
+const supplierRouter = require('./routes/suppliers/');
+
+// import user routes
 const userRouter = require('./routes/users');
+
+// import other routes
+const genderRouter = require('./routes/other/gender.js');
+
 
 if (!process.env.ACCESS_TOKEN_SECRET) {
     console.error("FATAL ERROR : JWT secret is not defined");
@@ -39,11 +47,17 @@ app.use('/api/products', productRouter);
 
 // customer routes
 app.use('/api/customers/statuses', customerStatusRouter);
-app.use('/api/customers/genders', genderRouter);
 app.use('/api/customers', customerRouter);
+
+// supplier routes
+app.use('/api/suppliers/statuses', supplierStatusRouter);
+app.use('/api/suppliers', supplierRouter);
 
 // login routes
 app.use('/api/users', userRouter);
+
+// other routes
+app.use('/api/customers/genders', genderRouter);
 
 // creating server...
 var port = process.env.PORT || 3000;

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
 
-    const Customer = sequelize.define('Customer', {
+    const Supplier = sequelize.define('Supplier', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         landphone: DataTypes.INTEGER,
         email: DataTypes.STRING,
         address: DataTypes.STRING,
-        customerStatusId: {
+        supplierStatusId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -24,11 +24,11 @@ module.exports = (sequelize) => {
         },
     });
 
-    Customer.associate = function (models) {
-        Customer.belongsTo(models.CustomerStatus, { foreignKey: 'customerStatusId' });
-        Customer.belongsTo(models.Gender, { foreignKey: 'genderId' });
+    Supplier.associate = function (models) {
+        Supplier.belongsTo(models.SupplierStatus, { foreignKey: 'supplierStatusId' });
+        Supplier.belongsTo(models.Gender, { foreignKey: 'genderId' });
     }
 
-    return Customer;
+    return Supplier;
 
 }

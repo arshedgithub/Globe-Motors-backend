@@ -37,7 +37,13 @@ db.UseStatus = require('../models/Product/useStatus.js')(sequelize);
 // Customer models
 db.Customer = require('../models/Customer/customer.js')(sequelize);
 db.CustomerStatus = require('../models/Customer/customerStatus.js')(sequelize);
-db.Gender = require('../models/Customer/gender.js')(sequelize);
+
+// Supplier models
+db.Supplier = require('../models/Supplier/supplier.js')(sequelize);
+db.SupplierStatus = require('../models/Supplier/supplierStatus.js')(sequelize);
+
+// other models
+db.Gender = require('../models/Other/gender.js')(sequelize);
 
 // Apply associations
 Object.keys(db).forEach(modelName => {
@@ -47,7 +53,7 @@ Object.keys(db).forEach(modelName => {
 });
 
 // Sync database
-sequelize.sync({ force: false })
+sequelize.sync({ force: true })
   .then(() => console.log("Database synced successfully."))
   .catch(err => console.log(err));
 
