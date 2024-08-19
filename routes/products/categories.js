@@ -4,7 +4,7 @@ const auth = require('../../middlewares/auth');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const Category = db.category;
+const Category = db.Category;
 
 router.get('/', async (req, res, next) => {
     let categories = await Category.findAll();

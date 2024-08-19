@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-
     const UseStatus = sequelize.define('product_use_status', {
         id: {
             type: DataTypes.INTEGER,
@@ -13,7 +12,7 @@ module.exports = (sequelize) => {
     });
 
     UseStatus.associate = function (models) {
-        UseStatus.hasMany(sequelize.define('products'));
+        UseStatus.hasMany(models.Product, { foreignKey: 'useStatusId' });
     }
 
     return UseStatus;

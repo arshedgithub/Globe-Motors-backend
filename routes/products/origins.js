@@ -4,7 +4,7 @@ const admin = require('../../middlewares/admin');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const Origin = db.origin;
+const Origin = db.Origin;
 
 router.get('/', async (req, res, next) => {
     let origins = await Origin.findAll();

@@ -4,11 +4,19 @@ const admin = require('../../middlewares/admin');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const Product = db.products;
-// const Category = db.category;
+const Product = db.Product;
 
 router.get('/', async (req, res, next) => {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+        include: [
+            { model: db.Brand, attributes: { exclude: ['createdAt', 'updatedAt'] }},
+            { model: db.Category, attributes: { exclude: ['createdAt', 'updatedAt']} },
+            { model: db.Subcategory, attributes: { exclude: ['createdAt', 'updatedAt']} },
+            { model: db.Origin, attributes: { exclude: ['createdAt', 'updatedAt']} },
+            { model: db.Vehicle, attributes: { exclude: ['createdAt', 'updatedAt']} },
+            { model: db.UseStatus, attributes: { exclude: ['createdAt', 'updatedAt']} }
+          ],
+    });
     res.status(200).json(products);
     next();
 });

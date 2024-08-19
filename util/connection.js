@@ -1,20 +1,12 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const mysql2 = require('mysql2');
-
-const brand = require('../models/Product/brand.js');
-const category = require('../models/Product/category.js');
-const subcategroy = require('../models/Product/subcategory.js');
-const useStatus = require('../models/Product/useStatus.js');
-const origin = require('../models/Product/origin.js');
-const vehicle = require('../models/Product/vehicle.js');
-const product = require('../models/Product/product.js');
 require('dotenv').config();
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   dialect: 'mysql',
   dialectModule: mysql2,
-  // pool: {
+   // pool: {
   //   max: 10,
   //   min: 0,
   //   acquire: 30000,
@@ -33,18 +25,25 @@ const db = {}
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// product models
-db.products = product(sequelize);
-db.brand = brand(sequelize);
-db.category = category(sequelize);
-db.subcategroy = subcategroy(sequelize);
-db.useStatus = useStatus(sequelize);
-db.origin = origin(sequelize);
-db.vehicle = vehicle(sequelize);
+// Import models
+db.Brand = require('../models/Product/brand.js')(sequelize);
+db.Product = require('../models/Product/product.js')(sequelize);
+db.Category = require('../models/Product/category.js')(sequelize);
+db.Subcategory = require('../models/Product/subcategory.js')(sequelize);
+db.Origin = require('../models/Product/origin.js')(sequelize);
+db.Vehicle = require('../models/Product/vehicle.js')(sequelize);
+db.UseStatus = require('../models/Product/useStatus.js')(sequelize);
 
-// recreating database tables
-sequelize.sync({ force: true })
-.then(() => console.log("Database synced successfully."))
-.catch(err => console.log(err));
+// Apply associations
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+// Sync database
+sequelize.sync({ force: false })
+  .then(() => console.log("Database synced successfully."))
+  .catch(err => console.log(err));
 
 module.exports = db;

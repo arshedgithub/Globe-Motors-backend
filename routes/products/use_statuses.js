@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const UseStatus = db.category;
+const UseStatus = db.UseStatus;
 
 router.get('/', async (req, res, next) => {
     let usestatuses = await UseStatus.findAll();
