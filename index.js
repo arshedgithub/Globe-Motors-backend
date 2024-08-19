@@ -5,7 +5,7 @@ const app = express();
 var cors = require('cors');
 app.use(cors());
 
-// import routes
+// import product routes
 const categoryRouter = require('./routes/products/categories');
 const subcategoryRouter = require('./routes/products/subcategories');
 const brandRouter = require('./routes/products/brands');
@@ -13,6 +13,11 @@ const originRouter = require('./routes/products/origins');
 const useStatusRouter = require('./routes/products/use_statuses');
 const vehicleRouter = require('./routes/products/vehicles');
 const productRouter = require('./routes/products/');
+
+// import customer routes
+const customerStatusRouter = require('./routes/customers/status.js');
+const genderRouter = require('./routes/customers/gender');
+const customerRouter = require('./routes/customers/');
 
 const userRouter = require('./routes/users');
 
@@ -31,6 +36,11 @@ app.use('/api/products/origins', originRouter);
 app.use('/api/products/vehicles', vehicleRouter);
 app.use('/api/products/usestatuses', useStatusRouter);
 app.use('/api/products', productRouter);
+
+// customer routes
+app.use('/api/customers/statuses', customerStatusRouter);
+app.use('/api/customers/genders', genderRouter);
+app.use('/api/customers', customerRouter);
 
 // login routes
 app.use('/api/users', userRouter);

@@ -25,7 +25,7 @@ const db = {}
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// Import models
+// Product models
 db.Brand = require('../models/Product/brand.js')(sequelize);
 db.Product = require('../models/Product/product.js')(sequelize);
 db.Category = require('../models/Product/category.js')(sequelize);
@@ -33,6 +33,11 @@ db.Subcategory = require('../models/Product/subcategory.js')(sequelize);
 db.Origin = require('../models/Product/origin.js')(sequelize);
 db.Vehicle = require('../models/Product/vehicle.js')(sequelize);
 db.UseStatus = require('../models/Product/useStatus.js')(sequelize);
+
+// Customer models
+db.Customer = require('../models/Customer/customer.js')(sequelize);
+db.CustomerStatus = require('../models/Customer/customerStatus.js')(sequelize);
+db.Gender = require('../models/Customer/gender.js')(sequelize);
 
 // Apply associations
 Object.keys(db).forEach(modelName => {
