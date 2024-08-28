@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken');
 const connection = require('../../util/connection');
 const admin = require('../../middlewares/admin');
 const auth = require('../../middlewares/auth');
-const user = require('../../models/User/user');
 const router = express.Router();
+
+const User = db.User;
 
 router.get('/', auth, admin, (req, res, next) => {
     var query = "Select * from gm_user";
@@ -57,7 +58,7 @@ router.post('/auth/signup', async (req, res) => {
     try {
         const { username, name, password, email, address, contact } = req.body;
         const new_user = { username, name, password, email, address, contact };
-        const user = await user.create(new_user);
+        const user = await User.create(new_user);
         res.status(200).json({username: user.username, name: user.name, contact: user.contact});
         next();
     } catch (error) {
