@@ -4,10 +4,14 @@ const auth = require('../../middlewares/auth');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const Subcategory = db.subcategroy;
+const Subcategory = db.Subcategory;
 
 router.get('/', async (req, res, next) => {
-    let subcategories = await Subcategory.findAll();
+    let subcategories = await Subcategory.findAll({
+        include: [
+            { model: db.Category },
+        ]
+    });
     res.status(200).json(subcategories);
     next();
 });
@@ -23,7 +27,7 @@ router.post('/', auth, admin, async (req, res, next) => {
 });
 
 router.delete('/:id', auth, admin, async (req, res, next) => {
-    let subcategory = await Subcategory.destroy({where: {id: req.params.id}});
+    let subcategory = await Subcategory.destroy({ where: { id: req.params.id } });
     res.status(200).json(subcategory + ' deleted');
     next();
 });

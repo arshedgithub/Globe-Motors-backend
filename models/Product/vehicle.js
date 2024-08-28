@@ -13,9 +13,9 @@ module.exports = (sequelize) => {
     });
 
     Vehicle.associate = function (models) {
-        Vehicle.hasMany(sequelize.define('products'));
+        Vehicle.hasMany(models.Product, { foreignKey: 'vehicleId' });
     }
 
     return Vehicle;
- 
+
 }

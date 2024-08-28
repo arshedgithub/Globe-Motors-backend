@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
     });
 
     Origin.associate = function (models) {
-        Origin.hasMany(sequelize.define('products'));
+        Origin.hasMany(models.Product, { foreignKey: 'originId' });
     }
 
     return Origin;

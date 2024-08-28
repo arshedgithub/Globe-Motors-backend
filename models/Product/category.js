@@ -13,8 +13,8 @@ module.exports = (sequelize) => {
     });
 
     Category.associate = function (models) {
-        Category.hasMany(sequelize.define('products'));
-        Category.hasMany(sequelize.define('product_subcategory'));
+        Category.hasMany(models.Product, { foreignKey: 'categoryId' });
+        Category.hasMany(models.Subcategory, { foreignKey: 'categoryId' });
     }
 
     return Category;

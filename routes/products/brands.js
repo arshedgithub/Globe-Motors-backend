@@ -4,7 +4,7 @@ const admin = require('../../middlewares/admin');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const Brand = db.brand;
+const Brand = db.Brand;
 
 router.get('/', async (req, res, next) => {
     let brands = await Brand.findAll();

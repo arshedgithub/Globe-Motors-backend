@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-
+    
     const Brand = sequelize.define('product_brand', {
         id: {
             type: DataTypes.INTEGER,
@@ -9,13 +9,12 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             allowNull: false
         },
-        name: DataTypes.STRING,
+        name: DataTypes.STRING
     });
 
-    Brand.associate = function(models){
-        Brand.hasMany(sequelize.define('products')); 
+    Brand.associate = function (models) {
+        Brand.hasMany(models.Product, { foreignKey: 'brandId' });
     }
 
     return Brand;
-
-}
+};
