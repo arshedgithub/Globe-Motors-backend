@@ -44,7 +44,7 @@ router.post('/auth/signin', (req, res) => {
     // use role from user table in jwt payload
 
     if (username == process.env.ADMIN_USERNAME && password == process.env.ADMIN_PASSWORD) {
-        const user = { username: username }
+        const user = { username: username, isAdmin: true }
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "3h", algorithm: "HS512"});
         res.json({accessToken});
     } else {
