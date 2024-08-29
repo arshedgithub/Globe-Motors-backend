@@ -54,6 +54,7 @@ module.exports = (sequelize) => {
     Product.belongsTo(models.Origin, { foreignKey: 'originId' });
     Product.belongsTo(models.Vehicle, { foreignKey: 'vehicleId' });
     Product.belongsTo(models.UseStatus, { foreignKey: 'useStatusId' });
+    Product.hasMany(models.Order, { foreignKey: 'productId' });
   }
 
   return Product;
