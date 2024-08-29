@@ -8,8 +8,10 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             allowNull: false
         },
-        date: DataTypes.DATE,
-        quantity: DataTypes.DECIMAL(12, 2),
+        quantity: {
+            type: DataTypes.DECIMAL(12, 2),
+            allowNull: false
+        },
         total: DataTypes.DECIMAL(12, 2),
         productId: {
             type: DataTypes.INTEGER,

@@ -8,8 +8,8 @@ const Order = db.Order;
 
 router.get('/', auth, admin, async (req, res, next) => {
     try {
-        const products = await Order.findAll();
-        res.status(200).json(products);
+        const orders = await Order.findAll();
+        res.status(200).json(orders);
         next();
     } catch (error) {
         res.status(400).json(error.message);
@@ -19,10 +19,10 @@ router.get('/', auth, admin, async (req, res, next) => {
 
 router.post('/', auth, async (req, res, next) => {
     try {
-        let { name, description, photo, review, offer, cost, price, tax, stock, stock_limit_min, stock_limit_max, categoryId, subcategoryId, brandId, vehicleId, originId, useStatusId } = req.body;
-        let new_product = { name, description, photo, review, offer, cost, price, tax, stock, stock_limit_min, stock_limit_max, categoryId, subcategoryId, brandId, vehicleId, originId, useStatusId };
-        const product = await Order.create(new_product);
-        res.status(200).json(product);
+        let { quantity, total, userId, productId } = req.body;
+        let new_order = { quantity, total, userId, productId }
+        const order = await Order.create(new_order);
+        res.status(200).json(order);
         next();
     } catch (error) {
         res.status(400).json(error.message);

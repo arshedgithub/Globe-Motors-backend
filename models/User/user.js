@@ -6,18 +6,26 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false
+            allowNull: false,
+            required: true
         },
         username: {
             type: DataTypes.STRING,
             unique: true,
+            allowNull: false,
+            required: true
+        },
+        name: {
+            type: DataTypes.STRING,
             allowNull: false
         },
-        name: DataTypes.STRING,
-        password: DataTypes.STRING,
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         email: DataTypes.STRING,
         address: DataTypes.STRING,
-        contact: DataTypes.STRING
+        contact: { type: DataTypes.STRING, allowNull: false },
     }, {
         tableName: 'user',
     });

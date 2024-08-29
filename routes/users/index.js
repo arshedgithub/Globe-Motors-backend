@@ -58,7 +58,7 @@ router.post('/auth/signin', async (req, res) => {
     }
 });
 
-router.post('/auth/signup', async (req, res) => {
+router.post('/auth/signup', async (req, res, next) => {
     try {
         const { username, name, password, email, address, contact } = req.body;
         const new_user = { username, name, password, email, address, contact };
