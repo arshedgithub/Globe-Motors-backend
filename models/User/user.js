@@ -8,7 +8,11 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             allowNull: false
         },
-        username: DataTypes.STRING,
+        username: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false
+        },
         name: DataTypes.STRING,
         password: DataTypes.STRING,
         email: DataTypes.STRING,
@@ -17,7 +21,6 @@ module.exports = (sequelize) => {
     }, {
         tableName: 'user',
     });
-
 
     User.associate = function (models) {
         User.hasMany(models.Order, { foreignKey: 'orderId' });

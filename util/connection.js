@@ -35,7 +35,6 @@ db.Vehicle = require('../models/Product/vehicle.js')(sequelize);
 db.UseStatus = require('../models/Product/useStatus.js')(sequelize);
 db.User = require('../models/User/user.js')(sequelize);
 db.Order = require('../models/Order/order.js')(sequelize);
-db.Orderitem = require('../models/Order/orderitem.js')(sequelize);
 
 // Apply associations
 Object.keys(db).forEach(modelName => {

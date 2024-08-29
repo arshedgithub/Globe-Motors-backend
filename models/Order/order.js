@@ -9,7 +9,12 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         date: DataTypes.DATE,
+        quantity: DataTypes.DECIMAL(12, 2),
         total: DataTypes.DECIMAL(12, 2),
+        productId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -20,8 +25,8 @@ module.exports = (sequelize) => {
 
     Order.associate = function (models) {
         Order.belongsTo(models.User, { foreignKey: 'userId' });
-        Order.hasMany(models.Orderitem, { foreignKey: 'orderitemId' });
+        Order.belongsTo(models.Product, { foreignKey: 'productId' });
     }
 
-    return User;
+    return Order;
 };

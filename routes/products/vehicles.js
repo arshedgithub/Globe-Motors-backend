@@ -4,11 +4,11 @@ const admin = require('../../middlewares/admin');
 const db = require('../../util/connection');
 const router = express.Router();
 
-const Vehicle = db.vehicle;
+const Vehicle = db.Vehicle;
 
 router.get('/', async (req, res, next) => {
-    let vehicle = await Vehicle.findAll();
-    res.status(200).json(vehicle);
+    let vehicles = await Vehicle.findAll();
+    res.status(200).json(vehicles);
     next();
 });
 
