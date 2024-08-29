@@ -8,7 +8,27 @@ const Order = db.Order;
 
 router.get('/', auth, admin, async (req, res, next) => {
     try {
-        const orders = await Order.findAll();
+        const orders = await Order.findAll({
+            include: [
+                { model: db.Product, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+                { model: db.User, attributes: { exclude: ['createdAt', 'updatedAt', 'password'] } },
+            ],
+        });
+        res.status(200).json(orders);
+        next();
+    } catch (error) {
+        res.status(400).json(error.message);
+        next();
+    }
+});
+
+router.get('/:userId', auth, admin, async (req, res, next) => {
+    try {
+        const orders = await Order.find({
+            where: {
+                userId: req.params.userId
+            }
+        });
         res.status(200).json(orders);
         next();
     } catch (error) {
@@ -29,3 +49,5 @@ router.post('/', auth, async (req, res, next) => {
         next();
     }
 });
+
+module.exports = router;
