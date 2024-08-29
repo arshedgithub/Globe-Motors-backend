@@ -31,7 +31,7 @@ router.get('/', auth, admin, async (req, res, next) => {
 //     });
 // });
 
-router.post('/auth/signin', async (req, res) => {
+router.post('/auth/signin', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -54,6 +54,7 @@ router.post('/auth/signin', async (req, res) => {
     } else {
         res.status(401).json({ message: "Invalid username or password." });
     }
+    next();
 });
 
 router.post('/auth/signup', async (req, res, next) => {
