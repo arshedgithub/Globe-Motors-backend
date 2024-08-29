@@ -11,7 +11,7 @@ router.get('/', auth, admin, async (req, res, next) => {
         const orders = await Order.findAll({
             include: [
                 { model: db.Product, attributes: { exclude: ['createdAt', 'updatedAt'] } },
-                { model: db.User, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+                { model: db.User, attributes: { exclude: ['createdAt', 'updatedAt', 'password'] } },
             ],
         });
         res.status(200).json(orders);
