@@ -48,9 +48,7 @@ router.post('/auth/signin', async (req, res) => {
         res.json({ accessToken });
 
     } else if (user){
-        console.log(user);
         const userPayload = { username: username, isAdmin: false, user: user.id }
-        console.log(userPayload);
         const accessToken = jwt.sign(userPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3h", algorithm: "HS512" });
         res.json({ userPayload, accessToken });
     } else {
