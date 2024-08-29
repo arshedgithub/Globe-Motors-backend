@@ -8,7 +8,12 @@ const Order = db.Order;
 
 router.get('/', auth, admin, async (req, res, next) => {
     try {
-        const orders = await Order.findAll();
+        const orders = await Order.findAll({
+            include: [
+                { model: db.Product, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+                { model: db.User, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+            ],
+        });
         res.status(200).json(orders);
         next();
     } catch (error) {
