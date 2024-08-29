@@ -40,7 +40,7 @@ router.post('/auth/signin', async (req, res) => {
     // (visit vidly backend)
     // use role from user table in jwt payload
 
-    const user = await find({ where: { username: username, password: password}});
+    const user = await User.findOne({ where: { username: username, password: password}});
 
     if (username == process.env.ADMIN_USERNAME && password == process.env.ADMIN_PASSWORD) {
         const userPayload = { username: username, isAdmin: true, user: "admin" }
@@ -49,10 +49,10 @@ router.post('/auth/signin', async (req, res) => {
 
     } else if (user){
         console.log(user);
-        const userPayload = { username: username, isAdmin: true, user: user.id }
+        const userPayload = { username: username, isAdmin: false, user: user.id }
         console.log(userPayload);
         const accessToken = jwt.sign(userPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3h", algorithm: "HS512" });
-        res.json({ accessToken });
+        res.json({ userPayload, accessToken });
     } else {
         res.status(401).json({ message: "Invalid username or password." });
     }

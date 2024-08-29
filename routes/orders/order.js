@@ -22,6 +22,21 @@ router.get('/', auth, admin, async (req, res, next) => {
     }
 });
 
+router.get('/:userId', auth, admin, async (req, res, next) => {
+    try {
+        const orders = await Order.find({
+            where: {
+                userId: req.params.userId
+            }
+        });
+        res.status(200).json(orders);
+        next();
+    } catch (error) {
+        res.status(400).json(error.message);
+        next();
+    }
+});
+
 router.post('/', auth, async (req, res, next) => {
     try {
         let { quantity, total, userId, productId } = req.body;
@@ -34,3 +49,5 @@ router.post('/', auth, async (req, res, next) => {
         next();
     }
 });
+
+module.exports = router;
